@@ -99,8 +99,9 @@ padding: 0 0 0 500px;
 
 #iframeBlog {
 width: 900px;
-height: 400px;
+height: 405px;
 border: 0;
+margin: 0 0 -5px 0;
 }
 
 #main {
