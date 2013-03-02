@@ -180,7 +180,8 @@ margin: 0 0 -5px 0;
 }
 
 .code {
-  background: transparent url(../images/code.png) no-repeat 0 4px;
+  background: transparent url("http://www.tech-edit.com/images/star.png") no-repeat 0 4px;
+  background-size: 30%;
   padding-left: 40px;
   margin-top: 8px;
   display: block;
