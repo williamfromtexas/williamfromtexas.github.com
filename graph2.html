@@ -18,6 +18,11 @@ text {
 
 </style>
 <body>
+<!-- from here
+http://bl.ocks.org/mbostock/3020685
+http://stackoverflow.com/questions/11246759/stacked-area-in-d3-js
+-->
+
 <script src="http://d3js.org/d3.v2.min.js?2.9.5"></script>
 <script>
 
@@ -70,7 +75,7 @@ var svg = d3.select("body").append("svg")
    //   .area(function(d) { return d.key; });
 
 
-d3.csv("data2.csv", function(data) {
+d3.csv("dutchdata.csv", function(data) {
   data.forEach(function(d) {
     d.date = format.parse(d.date);
     d.value = +d.value;
