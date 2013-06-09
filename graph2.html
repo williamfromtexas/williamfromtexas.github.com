@@ -6,15 +6,18 @@ body {
   font: 10px sans-serif;
 }
 
-text {
-  font: 10px sans-serif;
-}
-
 .axis path, .axis line {
   fill: none;
   stroke: #000;
   shape-rendering: crispEdges;
 }
+
+.legend {
+            padding: 5px;
+            font: 10px sans-serif;
+            background: yellow;
+            box-shadow: 2px 2px 1px #888;
+        }
 
 </style>
 <body>
@@ -28,9 +31,9 @@ http://stackoverflow.com/questions/11246759/stacked-area-in-d3-js
 
 var format = d3.time.format("%m/%d/%y");
 
-var margin = {top: 20, right: 30, bottom: 30, left: 40},
-    width = 850 - margin.left - margin.right,
-    height = 375 - margin.top - margin.bottom;
+var margin = {top: 20, right: 80, bottom: 30, left: 40},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
     .range([0, width]);
@@ -38,26 +41,25 @@ var x = d3.time.scale()
 var y = d3.scale.linear()
     .range([height, 0]);
 
-var z = d3.scale.category20c();
+var z = d3.scale.category20();
 
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
     .ticks(d3.time.days);
 
-//var yAxis = d3.svg.axis()
-//    .scale(y)
-//    .orient("left");
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
 
 var stack = d3.layout.stack()
-    .offset("wiggle")
+    .offset("0")
     .values(function(d) { return d.values; })
     .x(function(d) { return d.date; })
     .y(function(d) { return d.value; });
 
 var nest = d3.nest()
     .key(function(d) { return d.key; });
-
 
 var area = d3.svg.area()
     .interpolate("cardinal")
@@ -70,10 +72,6 @@ var svg = d3.select("body").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// nest.append("title")
-   //   .area(function(d) { return d.key; });
-
 
 d3.csv("dutchdata.csv", function(data) {
   data.forEach(function(d) {
@@ -101,6 +99,46 @@ d3.csv("dutchdata.csv", function(data) {
   svg.append("g")
       .attr("class", "y axis")
       .call(yAxis);
+
+// some new Labelling from here
+
+	// Add title	  
+	svg.append("svg:text")
+		   .attr("class", "title")
+	   .attr("x", 840)
+	   .attr("y", 20)
+	   .text("Keywords");
+
+
+	// add legend   
+	var legend = svg.append("g")
+	  .attr("class", "legend")
+        //.attr("x", w - 65)
+        //.attr("y", 50)
+	  .attr("height", 100)
+	  .attr("width", 100)
+    .attr('transform', 'translate(-20,50)')    
+      
+    
+    legend.selectAll('rect')
+      .data(layers)
+      .enter()
+      .append("rect")
+	  .attr("x", 865)
+      .attr("y", function(d, i){ return i *  20;})
+	  .attr("width", 100)
+	  .attr("height", 10)
+	  .style("fill", function(d, i) { return z(i); })
+      
+    legend.selectAll('text')
+      .data(layers)
+      .enter()
+      .append("text")
+	  .attr("x", 875)
+      .attr("y", function(d, i){ return i *  20 + 9;})
+	  .text(function(d) { return d.key; });
+// end new LABELS
 });
 
 </script>
+
