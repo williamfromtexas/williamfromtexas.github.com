@@ -32,7 +32,7 @@ http://stackoverflow.com/questions/11246759/stacked-area-in-d3-js
 var format = d3.time.format("%m/%d/%y");
 
 var margin = {top: 20, right: 80, bottom: 30, left: 40},
-    width = 960 - margin.left - margin.right,
+    width = 850 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
 var x = d3.time.scale()
@@ -124,7 +124,7 @@ d3.csv("dutchdata.csv", function(data) {
       .data(layers)
       .enter()
       .append("rect")
-	  .attr("x", 865)
+	  .attr("x", 765)
       .attr("y", function(d, i){ return i *  20;})
 	  .attr("width", 100)
 	  .attr("height", 10)
@@ -134,7 +134,7 @@ d3.csv("dutchdata.csv", function(data) {
       .data(layers)
       .enter()
       .append("text")
-	  .attr("x", 875)
+	  .attr("x", 775)
       .attr("y", function(d, i){ return i *  20 + 9;})
 	  .text(function(d) { return d.key; });
 // end new LABELS
