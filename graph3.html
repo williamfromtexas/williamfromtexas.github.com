@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<style>
+
+text {
+  font: 13px sans-serif !important;
+}
+g.tick {
+  margin: 2px !important;
+}
+
+g line { 
+display: none;
+}
+
+</style>
+</head>
+<body>
+<!-- 
+-->
+<p>Barchart and spider wordcounting test, 280 keyword frequency results, guess from which page? :) Oct 31</p>
+
+
+<div id="chartContainer" style="margin-left:50px; position:absolute; max-height:100%; margin-bottom: -100px;">
+  <script src="javascripts/d3.v3.min.js"></script>
+  <script src="javascripts/dimple.v1.1.1.min.js"></script>
+  <script type="text/javascript">
+var lines = 280;
+var compHeight = lines * 20;
+var svgcompHeight = compHeight - 100;
+    var svg = dimple.newSvg("#chartContainer", 700, compHeight);
+    d3.tsv("cnn.com20131031.tsv", function (data) {
+	var myChart = new dimple.chart(svg, data);
+//setBounds(x, y, width, height)
+	myChart.setBounds(275, 30, 400, svgcompHeight);
+	var x = myChart.addMeasureAxis("x", "Count");
+	myChart.addCategoryAxis("y", "Word").addOrderRule("Count");
+	myChart.addSeries("Count", dimple.plot.bar);
+//y.floatingBarWidth = 10;
+	myChart.draw();
+    });
+  </script>
+</div>
+</body>
+</html>
