@@ -23,18 +23,25 @@ display: none;
 <p>Barchart and spider wordcounting test, 280 keyword frequency results, guess from which page? :) Oct 31</p>
 
 
-<div id="chartContainer" style="margin-left:50px; position:absolute; max-height:100%; margin-bottom: -100px;">
-  <script src="javascripts/d3.v3.min.js"></script>
-  <script src="javascripts/dimple.v1.1.1.min.js"></script>
+<table><tr><td>
+2013-11-08 16:27
+</td>
+<td>
+<div id="printHere" style="width:200px; display:inline; float:right; "></div>
+</td></tr>
+<tr><td style="vertical-align=top;">
+<div id="chartContainer" style="max-height:100%; margin-bottom: -100px; width:50%;">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v1.1.1.min.js"></script>
+<script src="index-lines.js"></script>
   <script type="text/javascript">
-var lines = 280;
 var compHeight = lines * 20;
 var svgcompHeight = compHeight - 100;
-    var svg = dimple.newSvg("#chartContainer", 700, compHeight);
-    d3.tsv("cnn.com20131031.tsv", function (data) {
+    var svg = dimple.newSvg("#chartContainer", 500, compHeight);
+    d3.tsv("index-results.tsv", function (data) {
 	var myChart = new dimple.chart(svg, data);
 //setBounds(x, y, width, height)
-	myChart.setBounds(275, 30, 400, svgcompHeight);
+	myChart.setBounds(275, 30, 200, svgcompHeight);
 	var x = myChart.addMeasureAxis("x", "Count");
 	myChart.addCategoryAxis("y", "Word").addOrderRule("Count");
 	myChart.addSeries("Count", dimple.plot.bar);
@@ -43,5 +50,38 @@ var svgcompHeight = compHeight - 100;
     });
   </script>
 </div>
+</td><td>
+<div id="chartContainer2" style="max-height:100%; margin-bottom: -100px; width:50%; display:inline; float:right;">
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v1.1.1.min.js"></script>
+<script src="js/jquery-latest.min.js"></script>
+<script src="index-lines.js"></script>
+  <script type="text/javascript">
+jQuery(document).ready(function($){
+var compHeight = lines * 30;
+var svgcompHeight = compHeight - 100;
+    var svg = dimple.newSvg("#chartContainer2", 500, compHeight);
+    d3.tsv("cnn.comtest.tsv", function (data) {
+	var myChart = new dimple.chart(svg, data);
+//setBounds(x, y, width, height)
+	myChart.setBounds(275, 30, 200, svgcompHeight);
+	var x = myChart.addMeasureAxis("x", "Count");
+	myChart.addCategoryAxis("y", "Word").addOrderRule("Count");
+	myChart.addSeries(["Count", "Date"], dimple.plot.bar);
+
+//y.floatingBarWidth = 10;
+// Animate the chart for every date value, any dimension can be passed
+        // here and dimple will animate over its values.
+var frameValue = 0;
+        myChart.setStoryboard("Date", function (e) {
+			$('#printHere').html(e); });
+
+	myChart.draw();
+
+    });
+});
+  </script>
+</div>
+</td></tr></table>
 </body>
 </html>
