@@ -29,7 +29,7 @@ display: none;
 <td>
 <div id="printHere" style="width:200px; display:inline; float:right; "></div>
 </td></tr>
-<tr><td style="vertical-align=top;">
+<tr><td style="vertical-align:top;">
 <div id="chartContainer" style="max-height:100%; margin-bottom: -100px; width:50%;">
   <script src="js/d3.v3.min.js"></script>
   <script src="js/dimple.v1.1.1.min.js"></script>
@@ -60,7 +60,7 @@ var svgcompHeight = compHeight - 100;
 jQuery(document).ready(function($){
 var compHeight = lines * 30;
 var svgcompHeight = compHeight - 100;
-    var svg = dimple.newSvg("#chartContainer2", 500, compHeight);
+    var svg = dimple.newSvg("#chartContainer2", 400, compHeight);
     d3.tsv("cnn.comtest.tsv", function (data) {
 	var myChart = new dimple.chart(svg, data);
 //setBounds(x, y, width, height)
