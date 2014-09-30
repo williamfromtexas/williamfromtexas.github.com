@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+<head>
+<style>
+
+text {
+  font: 13px sans-serif !important;
+}
+g.tick {
+  margin: 2px !important;
+}
+
+g line { 
+display: none;
+}
+
+</style>
+</head>
+<body>
+<!-- 
+-->
+<p>Spider scrape test: keywords from cnn front-page news, cerca Halloween.</p>
+
+
+<table><tr><td style="float:right;">
+<div id="printHere" style="width:200px; display:inline; float:right; "></div>
+</td><td>Probable words</td></tr>
+<tr><td>
+<div id="chartContainer2" style="max-height:100%; margin-bottom: -100px; width:40%; display:inline; float:left;">
+  <script src="js/d3.v3.min.js"></script>
+  <script src="js/dimple.v1.1.1.min.js"></script>
+<script src="js/jquery-latest.min.js"></script>
+<script src="index-lines.js"></script>
+  <script type="text/javascript">
+jQuery(document).ready(function($){
+var compHeight = lines * 30;
+var svgcompHeight = compHeight - 100;
+    var svg = dimple.newSvg("#chartContainer2", 500, compHeight);
+    d3.tsv("cnn.comtest.tsv", function (data) {
+	var myChart = new dimple.chart(svg, data);
+//setBounds(x, y, width, height)
+	myChart.setBounds(275, 30, 200, svgcompHeight);
+	var x = myChart.addMeasureAxis("x", "Count");
+	myChart.addCategoryAxis("y", "Word").addOrderRule("Count");
+	myChart.addSeries(["Count", "Date"], dimple.plot.bar);
+
+//y.floatingBarWidth = 10;
+// Animate the chart for every date value, any dimension can be passed
+        // here and dimple will animate over its values.
+var frameValue = 0;
+        myChart.setStoryboard("Date", function (e) {
+			$('#printHere').html(e); });
+
+	myChart.draw();
+
+    });
+});
+  </script>
+</div>
+</td>
+<td>
+Other graph or chart
+
+</td>
+</tr></table>
+</body>
+</html>
+
